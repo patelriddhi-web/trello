@@ -1,0 +1,17 @@
+@import "../../variables/colors.scss";
+
+.addCardMolecule {
+  .btn-grp {
+    display: block;
+    margin-top: 20px;
+    .btn {
+      background-color: $background-color;
+      margin-right: 10px;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 3px;
+    }
+    .cross {
+    }
+  }
+}

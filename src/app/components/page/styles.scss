@@ -1,0 +1,15 @@
+@import "../variables/colors.scss";
+.page-container {
+  margin: 2%;
+  display: flex;
+  justify-content: flex-start;
+
+  .list-container {
+    display: flex;
+  }
+  .list-btn {
+    padding: 10px;
+    background-color: $light-green;
+    cursor: pointer;
+  }
+}

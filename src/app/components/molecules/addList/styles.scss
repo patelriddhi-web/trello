@@ -1,0 +1,27 @@
+@import "../../variables//colors.scss";
+
+.addListMolecule {
+  background-color: $gray-color;
+  padding: 15px;
+  width: 272px;
+  border-radius: 3px;
+
+  .input-box {
+    height: 30px;
+    width: 100%;
+  }
+
+  .btn-grp {
+    display: block;
+    margin-top: 20px;
+    .btn {
+      background-color: $background-color;
+      margin-right: 10px;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 3px;
+    }
+    .cross {
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "trello",
+  "version": "1.0.0",
+  "description": "\"# trello\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open",
+    "devbuild": "webpack --mode development",
+    "build": "webpack --mode production",
+    "cosmos": "cosmos",
+    "cosmos:export": "cosmos-export"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patelriddhi-web/trello.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patelriddhi-web/trello/issues"
+  },
+  "homepage": "https://github.com/patelriddhi-web/trello#readme",
+  "devDependencies": {
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.3.0",
+    "node-sass": "^4.14.1",
+    "react-cosmos": "^5.4.0",
+    "sass-loader": "^9.0.2",
+    "source-map-loader": "^1.0.1",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^8.0.0",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "webpack-hot-middleware": "^2.25.0"
+  }
+}
