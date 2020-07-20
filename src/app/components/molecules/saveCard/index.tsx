@@ -4,7 +4,7 @@ import Typography from "../../atoms/typography";
 
 export interface SaveCardInterface {
   value: string;
-  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragStart?: (event: React.DragEvent<HTMLDivElement>) => void;
   id?: string;
   onDragOver?: (event: React.DragEvent<HTMLDivElement>) => void;
   onDrop?: (event: React.DragEvent<HTMLDivElement>) => void;

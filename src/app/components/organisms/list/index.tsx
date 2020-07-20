@@ -6,13 +6,30 @@ import AddCard from "../../molecules/addCard";
 import SaveCard from "../../molecules/saveCard";
 import { strings } from "../../variables/constants";
 
+export interface listItem {
+  id: string;
+  subCardTitle: string;
+}
+
+export interface list {
+  listTitle: string;
+  cards: Array<listItem>;
+  id: number;
+}
+
 export interface listInterface {
   title: string;
   onClick?: () => void;
   cancel?: () => void;
-  addSubCard?: (title: string) => void;
-  list: Array<any>;
-  id?: string;
+  addSubCard?: (title: string, uniqueId: string) => void;
+  list?: Array<list>;
+  id?: number;
+  onDragStart?: (
+    event: React.DragEvent<HTMLDivElement>,
+    item: Object,
+    index: number
+  ) => void;
+  onDrop?: (event: React.DragEvent<HTMLDivElement>, index: number) => void;
 }
 
 const List = ({
@@ -22,15 +39,14 @@ const List = ({
   cancel,
   list,
   id,
+  onDragStart,
+  onDrop,
 }: listInterface) => {
   const [save, setsave] = useState(false);
-  const [cardList, setcardList] = useState([]);
   const [inputData, setinputData] = useState("");
 
   let add = () => {
-    console.log("list", list);
     setsave(false);
-    setcardList([...cardList, { title: inputData, id: cardList.length }]);
     setinputData("");
   };
 
@@ -42,51 +58,38 @@ const List = ({
     setinputData(e.target.value);
   };
 
-  let dragStart = (event: any) => {
-    event.dataTransfer.setData(
-      "item",
-      JSON.stringify(cardList[event.target.id])
-    );
-    console.log("list id", id);
-    console.log("card id", event.target.id);
-    event.target.style.opacity = "0.4";
-    setTimeout(() => {
-      setcardList(cardList.splice(event.target.id + 1, 1, []));
-      let tempArrayObj = [...list][id];
-      let newList = [...list];
-      console.log(cardList);
-    }, 2000);
-  };
-
-  let dropElement = (event: any) => {
-    console.log("droping");
-    // event.preventDefault();
-    var data = event.dataTransfer.getData("item");
-    let temp = JSON.parse(data);
-    console.log(temp);
-    // event.target.appendChild(document.getElementById(data));
-    setcardList([...cardList, { title: temp.title, id: cardList.length }]);
-    console.log(cardList);
-  };
-  let allowDrop = (event: any) => {
+  let allowDrop = (event: Event) => {
     event.preventDefault();
   };
+
   return (
     <div
       className="listContainer"
       id={`list ${id}`}
-      onDrop={() => dropElement(event)}
       onDragOver={() => allowDrop(event)}
+      onDrop={
+        list[id].cards.length == 0
+          ? (event) => {
+              onDrop(event, null);
+            }
+          : null
+      }
     >
       <Typography label={title} fontSize="avg" fontWeight="avg-bold" />
       <div>
-        {Array.isArray(cardList) && cardList.length
-          ? cardList.map((item, index) => (
-              <SaveCard
-                value={item.title}
-                onDragStart={() => dragStart(event)}
-                id={item.id}
-              />
+        {Array.isArray(list) && list.length
+          ? list[id].cards.map((item: listItem, index: number) => (
+              <React.Fragment key={item.id}>
+                <SaveCard
+                  value={item.subCardTitle}
+                  onDragStart={(event) => {
+                    onDragStart(event, item, index);
+                  }}
+                  id={item.id}
+                  onDrop={(event) => onDrop(event, index)}
+                  onDragOver={() => allowDrop(event)}
+                />
+              </React.Fragment>
             ))
           : null}
       </div>
@@ -97,7 +100,10 @@ const List = ({
           addCard={() => {
             add();
             onClick();
-            addSubCard(inputData);
+            addSubCard(
+              inputData,
+              "_" + Math.random().toString(36).substr(2, 9)
+            );
           }}
           onChange={getUserData}
         />
